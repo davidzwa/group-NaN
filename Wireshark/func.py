@@ -17,13 +17,12 @@ def checkPyshark():
 	try:
 		import pyshark
 	except:
-		call("pip install pyshark", shell=True)
+		call("pip install --no-index --find-links ./pip pyshark", shell=True)
 		import pyshark
 def help():
 	helpDict = {'-h': 'Help', 
 		'-r': 'Stop airmon-ng wlan0mon + start network-service',
-		'-s': 'Start airmon-ng wlan0',
-		'-s': 'Start airmon-ng wlan0, run Tshark',
+		'-c': 'Set channel to sniff.'
 		'-ch #': 'Set channel hop interval [ms] (TODO)'}
 	print("Command : function") 
 	for key, val in helpDict.iteritems():
@@ -31,7 +30,6 @@ def help():
 def runTshark():
 	checkPyshark()
 	import pyshark
-	import trollius as asyncio
 	a =  packageFiltered()
 	try:
 		capture = pyshark.LiveCapture(interface='wlan0mon', only_summaries=True)
@@ -39,11 +37,5 @@ def runTshark():
 		while (1):
 			for packet in capture.sniff_continuously(packet_count=1000):
 				print("Packet: " + str(packet))
-#		for packet in capture.sniff_continuously(packet_count=50):
-#			print 'Just arrived... ' + str(packet['radiotap'].wlan)
 	except Exception as e:
 		print("wlan0mon excepted " + str(e))
-
-class packageFiltered:
-	def packagefiltered():
-		print "Constructor"
