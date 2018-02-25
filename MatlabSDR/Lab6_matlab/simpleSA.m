@@ -22,10 +22,10 @@ function [Px,F] = simpleSA(x,N,fs,min_dB,max_dB,color)
 
 warning off
 if isreal(x)
-    [Px,F] = psd(x,N,fs);
+    [Px,F] = pwelch(x,[],[],N,fs);
 else
     %[Px,F] = psd(x,[],[],N,fs);
-    [Px,F] = psd(x,N,fs);
+    [Px,F] = pwelch(x,[],[],N,fs);
     N = fix(length(F)/2);
     F = [F(end-N+1:end)-fs; F(1:N)];
     Px = [Px(end-N+1:end); Px(1:N)];
@@ -36,7 +36,7 @@ if nargout == 2
     return
 end
 
-if nargin == 3 || nargin == 5,
+if nargin == 3 || nargin == 5
     plot(F,10*log10(Px))
 else
     plot(F,10*log10(Px),color)
