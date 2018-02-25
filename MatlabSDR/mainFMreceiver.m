@@ -4,20 +4,25 @@ clear all; clc; close all;
 fc = 102.7E6;
 fs = 2.4E6;
 gain = 20;
-time = 2;  %sec
+time = 10;  %sec
+samples = time*fs;
 
-%output specification
+%file specification
+subFolder = 'Lab6_matlab';
 file = 'cap.bin';
 
-cmd = ['Lab6_matlab\rtl_sdr ' ... 
+addpath(subFolder);
+cmd = [subFolder '\rtl_sdr ' ... 
     '-s ' num2str(fs) ...
     ' -f ' num2str(fc) ...
     ' -g ' num2str(gain) ...
     ' -d 0' ...
-    ' -n ' num2str(time*fs) ...
+    ' -n ' num2str(samples) ...
     ' ' num2str(file) ...
     ];
-status = system(cmd)
+system(cmd)
+x = loadFile(file);
+simpleSA(x,2^14,2400);  % example values, not-working
 
 %sdrinfo
 %rx = comm.SDRRTLReceiver;
