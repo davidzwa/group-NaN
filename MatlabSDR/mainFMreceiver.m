@@ -9,8 +9,8 @@ samples = time*fs;
 
 %file specification
 subFolder = 'Lab6_matlab';
-file = 'cap.bin';
-refresh_capture = false;
+file = 'capture.bin';
+refresh_capture = false;    %only refresh when the dongle is present
 addpath(subFolder);
 
 if refresh_capture
@@ -25,8 +25,24 @@ if refresh_capture
     system(cmd)
 end
 x = loadFile(file);
-simpleSA(x,2^14,2400);  % example values, not-working
+%simpleSA(x,2^14,2400);  % example values, not-working
 
-%sdrinfo
-%rx = comm.SDRRTLReceiver;
-%rx.CenterFrequency = fc;
+fc = 80E3;
+[b,a] = butter(6,fc/fs);
+y_B1 = filter(b, a, x);
+y_N2 = decimate(y_B1, 10);
+z_dis = discrim(y_N2);
+fc2 = 20E3;
+fs2 = 48E3;
+[b2,a2] = butter(6,fc2/fs2);
+z_B2 = filter(b2, a2, z_dis);
+z_N2 = decimate(z_B2,5);
+
+tau = 75E-6;
+f3 = 1/(2*pi*tau);
+a1 = exp(-2*pi*f3/fs2);
+b3 = [1-a1];
+a3 = [1, -a1];
+y = filter(b3,a3,z_N2);
+sound(y,fs2);
+simpleSA(z_dis,2^14,2400);
