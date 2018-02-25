@@ -25,7 +25,12 @@ if refresh_capture
     system(cmd)
 end
 x = loadFile(file);
-simpleSA(x,2^14,2400);  % example values, not-working
+
+x = FM_demod(x, 100000, 10, 20000, 5, fs);
+
+sound(x, 48e3)
+
+simpleSA(x,2^14, 48e3);  % example values, not-working
 
 %sdrinfo
 %rx = comm.SDRRTLReceiver;
