@@ -1,3 +1,3 @@
 class packageFiltered:
 	def packagefiltered():
-		print "Constructor called"
+		print ("Constructor called")

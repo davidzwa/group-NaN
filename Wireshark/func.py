@@ -23,7 +23,7 @@ def checkPyshark():
 			call("sudo pip install --no-index --find-links ./pip pyshark", shell=True)
 			import pyshark
 		except:
-			print program + "Attempting downloading pyshark. If this fails, check connection."
+			print (program + "Attempting downloading pyshark. If this fails, check connection.")
 			try:
 				call("mkdir pip", shell=True)
 				call("sudo pip install --download ./pip pyshark", shell=True)
