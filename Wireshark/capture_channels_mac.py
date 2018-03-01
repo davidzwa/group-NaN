@@ -16,7 +16,7 @@ for channel in range(1, 14):
 			stdout=log_file,
 			stderr=log_file,
 			close_fds=True)
-		time.sleep(2)
+		time.sleep(10)
 		proc.send_signal(2)
 		while proc.poll() is None:
 			time.sleep(0.0001)
