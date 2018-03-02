@@ -3,10 +3,12 @@ import pprint
 g_speeds = [6, 9, 12, 18, 24, 36, 48, 54]
 
 def parsePacket(packet):
+	# wireshark = packet.layers[0]
 	radio = packet.layers[1]
 	wlan = packet.layers[2]
 	wlan2 = packet.layers[3]
 	info = {
+		"timestamp": float(packet.frame_info.time_epoch.show),
 		"source": "beacon",
 		"bandwith": 20,
 		"mac": wlan.bssid.show,
@@ -17,6 +19,8 @@ def parsePacket(packet):
 		"g_supported": False,
 		"n_supported": False
 	}
+	# print(float(packet.frame_info.time_epoch.show))
+	# print(packet.frame_info.field_names)
 	if hasattr(radio, 'data_rate'):
 		info["data_rate"] = int(radio.data_rate.show)
 
