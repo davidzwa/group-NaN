@@ -1,9 +1,9 @@
 import sys
 from func import *
 from subprocess import call
-from capture import runTshark
 program = "[run.py]: "
 channel = -1
+hop = True	# Set this True with -c flag
 
 if len(sys.argv) > 0:
 	if len(sys.argv) > 1:
@@ -17,7 +17,7 @@ if len(sys.argv) > 0:
 		elif sys.argv[1] == '-h':
 			help()
 			exit()
-		elif sys.argv[1] == '-c' and len(sys.argv) >= 3:
+		elif sys.argv[1] == '-ch' and len(sys.argv) >= 3:
 			try:
 				if int(sys.argv[2]):
 					channel = sys.argv[2]
@@ -34,8 +34,13 @@ if len(sys.argv) > 0:
 # Check required package (requirements?)
 checkPyshark()
 
-print(program+ "Setting airmon, running Tshark on channel " + str(channel))
-set(channel)
-runTshark()
+if not hop:
+	print(program+ "Setting airmon, running Tshark with channel " + str(channel))
+	set(channel)
+else:
+	print(program+ "Setting airmon, running Tshark with hopper.")	
+	set(0)
 
-reset()
+from capture import runTshark
+runTshark()
+#reset()
