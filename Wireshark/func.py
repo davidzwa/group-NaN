@@ -29,13 +29,17 @@ def checkPyshark():
 				call("sudo pip install --download ./pip pyshark", shell=True)
 			except:
 				exit("Pyshark pip-package download not succesful. Try and download it again.")
-		
+
+def callHopper():
+	try:
+		call("bash ./bash/chanhop.sh -i wlan0mon -b IEEE80211BINTL", shell=True)
+	except:
+		exit("Couldn't start hoppert")
 def help():
 	helpDict = {'-h': 'Help', 
 		'-r': 'Stop airmon-ng wlan0mon + start network-service.',
 		'-s': 'Stop airmon-ng wlan0mon.',
-		'-c #': 'Set channel to sniff.',
-		'-ch #': 'Set channel hop interval [ms] (TODO).'}
+		'-ch #': 'Set channel to sniff.' }
 	print("Command : function") 
 	for key, val in helpDict.iteritems():
 		print(key + ": " + val)

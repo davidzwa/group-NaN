@@ -40,7 +40,8 @@ if not hop:
 else:
 	print(program+ "Setting airmon, running Tshark with hopper.")	
 	set(0)
+	callHopper()
 
-from capture import runTshark
-runTshark()
+#from capture import runTshark
+#runTshark()
 #reset()
