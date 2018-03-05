@@ -24,12 +24,12 @@ for file in glob.glob("./captures/*.pcapng"):
 			continue
 
 		if info["mac"] in aps:
-			previousinfo = aps[info["mac"]]
-			if previousinfo["ssid"] != info["ssid"]:
-				if not hasattr(previousinfo, 'ssids'):
-					previousinfo["ssids"] = [previousinfo["ssid"]]
-				if info.ssid not in previousinfo["ssids"]:
-					previousinfo["ssids"].append(info["ssid"])
+		# 	previousinfo = aps[info["mac"]]
+		# 	if previousinfo["ssid"] != info["ssid"]:
+		# 		if not hasattr(previousinfo, 'ssids'):
+		# 			previousinfo["ssids"] = [previousinfo["ssid"]]
+		# 		if info.ssid not in previousinfo["ssids"]:
+		# 			previousinfo["ssids"].append(info["ssid"])
 			continue
 
 		aps[info["mac"]] = info

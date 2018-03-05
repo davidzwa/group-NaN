@@ -44,7 +44,8 @@ def parsePacket(packet):
 
 	if hasattr(wlan2, 'ht_capabilities'):
 		info["n_supported"] = True
-		if wlan2.ht_capabilities_width == 1:
+		# print(wlan2.ssid, wlan2.ht_capabilities_width.int_value)
+		if wlan2.ht_capabilities_width.int_value == 1:
 			info["bandwith"] = 40
 
 	if hasattr(wlan2, 'vht_capabilities'):
@@ -61,15 +62,14 @@ def parsePacket(packet):
 	return info
 
 def packetToInfo(packet):
-	radio = packet.layers[1]
 	wlan = packet.layers[2]
 
 	# Beacon
 	if int(wlan.fc_type_subtype) == 8:
 		return parsePacket(packet)
 
-	if int(wlan.fc_type_subtype) == 5:
-		return parsePacket(packet)
+	# if int(wlan.fc_type_subtype) == 5:
+	# 	return parsePacket(packet)
 
 	return None
 
