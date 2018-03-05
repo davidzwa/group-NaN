@@ -39,12 +39,12 @@ for mac in aps:
 
 
 csv.register_dialect('fixed', delimiter=";")
-# with open(prefix + 'aps.csv', 'w') as csvfile:
-# 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames, dialect='fixed')
-#
-# 	writer.writeheader()
-# 	for mac in aps:
-# 		writer.writerow(aps[mac])
+with open(prefix + 'aps.csv', 'w') as csvfile:
+	writer = csv.DictWriter(csvfile, fieldnames=fieldnames, dialect='fixed')
+
+	writer.writeheader()
+	for mac in aps:
+		writer.writerow(aps[mac])
 
 
 with open(prefix + "per_minute.csv", 'w') as csvfile:
