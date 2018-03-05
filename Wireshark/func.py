@@ -32,7 +32,7 @@ def checkPyshark():
 
 def callHopper():
 	try:
-		call("bash ./bash/chanhop.sh -i wlan0mon -b IEEE80211BINTL", shell=True)
+		call("bash ./bash/chanhop.sh -d 0.1 -i wlan0mon -b IEEE80211BINTL", shell=True)
 	except:
 		exit("Couldn't start hoppert")
 def help():

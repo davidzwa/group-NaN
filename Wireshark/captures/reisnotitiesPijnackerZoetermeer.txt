@@ -1,0 +1,13 @@
+15:35 pijnacker centrum (metro) - 1000
+15:36 - stop 1080
+15:36 - 1100
+Note: veel connexion wifi info, filteren
+15:37 - klein vlieland, 1178
+15:39 - boerderijen/platteland
+15:41 - Molenlaan 1364
+Note: terugreis 0.1 channel hop
+15:42 - Driesprong 1474
+Note: veel encrypted payload gezien, komen ook ip-addressen uit
+15:44 - Nathaliegang 1580
+15:45 - Montessorilaan 1625
+15:47 - Station West perron B 1760
