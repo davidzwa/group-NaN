@@ -7,6 +7,9 @@ def parsePacket(packet):
 	radio = packet.layers[1]
 	wlan = packet.layers[2]
 	wlan2 = packet.layers[3]
+	if not hasattr(wlan2, "ssid"):
+		return None
+
 	info = {
 		"timestamp": float(packet.frame_info.time_epoch.show),
 		"source": "beacon",
@@ -22,7 +25,7 @@ def parsePacket(packet):
 	# print(float(packet.frame_info.time_epoch.show))
 	# print(packet.frame_info.field_names)
 	if hasattr(radio, 'data_rate'):
-		info["data_rate"] = int(radio.data_rate.show)
+		info["data_rate"] = float(radio.data_rate.show)
 
 	# print(wlan.bssid.show)
 
@@ -68,8 +71,8 @@ def packetToInfo(packet):
 	if int(wlan.fc_type_subtype) == 8:
 		return parsePacket(packet)
 
-	# if int(wlan.fc_type_subtype) == 5:
-	# 	return parsePacket(packet)
+	if int(wlan.fc_type_subtype) == 5:
+		return parsePacket(packet)
 
 	return None
 

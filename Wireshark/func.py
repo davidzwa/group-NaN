@@ -1,5 +1,12 @@
 from subprocess import call
 program = "[func.py]: "
+from datetime import datetime
+
+
+def timestampToExcelDatetime(timestamp):
+	# yyyy-MM-dd HH:mm:ssimport datetime
+
+	return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
 def set(channel=0):
 	call("airmon-ng check kill", shell=True)
