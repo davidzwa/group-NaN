@@ -9,17 +9,27 @@ import csv
 
 aps = {}
 channels = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
+num_packets = 0
 for file in glob.glob("./captures/*.pcapng"):
 	print(file)
 	capture = pyshark.FileCapture(input_file=file)
 
 	for packet in capture:
+		num_packets += 1
+		if (num_packets % 100) == 0:
+			print(num_packets)
+
 		info = model.packetToInfo(packet)
 		if info is None:
 			continue
 
 		if info["mac"] in aps:
+		# 	previousinfo = aps[info["mac"]]
+		# 	if previousinfo["ssid"] != info["ssid"]:
+		# 		if not hasattr(previousinfo, 'ssids'):
+		# 			previousinfo["ssids"] = [previousinfo["ssid"]]
+		# 		if info.ssid not in previousinfo["ssids"]:
+		# 			previousinfo["ssids"].append(info["ssid"])
 			continue
 
 		aps[info["mac"]] = info
