@@ -3,7 +3,7 @@ from func import *
 from subprocess import call
 program = "[run.py]: "
 channel = -1
-hop = True	# Set this True with -c flag
+hop = True	# Set this True to activate the channel hopper (dwelling time is set)
 
 if len(sys.argv) > 0:
 	if len(sys.argv) > 1:
@@ -19,6 +19,7 @@ if len(sys.argv) > 0:
 			exit()
 		elif sys.argv[1] == '-ch' and len(sys.argv) >= 3:
 			try:
+				# 
 				if int(sys.argv[2]):
 					channel = sys.argv[2]
 				else:
@@ -41,7 +42,3 @@ else:
 	print(program+ "Setting airmon, running Tshark with hopper.")	
 	set(0)
 	callHopper()
-
-#from capture import runTshark
-#runTshark()
-#reset()
