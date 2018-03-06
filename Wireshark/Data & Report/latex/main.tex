@@ -66,7 +66,7 @@ During analysis of the data we saw that there were no interesting results from t
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{static_per_channel_graph3.png}
-\caption{SSIDs per channel for different static situations.}
+\caption{SSIDs per channel for different static situations. $T_{dwell}=250ms$}
 \label{fig:static_per_channel_graph}
 \end{figure}
 In Figure \ref{fig:static_per_channel_graph} we compare different static situations, a clear difference can be seen between the campus (EWI Lift) and residential buildings (VHL Delft and Balpol Lift).
@@ -76,7 +76,7 @@ Where on the campus there is a clearly managed network of AP's on specific chann
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{NoncumuDynamicGraph.png}
-\caption{Unique amount of BSSID's per channel per time bin of 60 seconds.}
+\caption{Unique amount of BSSID's per channel per time bin of 60 seconds. ($T_{dwell}=100ms$)}
 \label{fig:dynamic_zoetermeer_aula}
 \end{figure}
 For the dynamic measurements we chose to capture on public bus transportation since we already needed to travel and it is possible to use your laptop while traveling also the limited speed of the bus is favourable as opposed to car or train. In Figure \ref{fig:dynamic_zoetermeer_aula} you can see the channel distribution of a bus ride. Clear differences can be seen between rural areas(4-7 minute\footnote{Between Zoetermeer and Pijnacker}) and more densely populated areas (11-13 minute\footnote{Centre of Pijnacker} and 17-22 minute\footnote{In Delft}) in the amount of AP's visible. While we only show 1 graph here and the cumulative version, the same behaviour is seen over different measurements on different routes. As we already noted in the static measurements, channels 1, 6 and 11 are the most used channels in residential areas. We see this again in this dynamic measurement (Figure \ref{fig:dynamic_zoetermeer_aula_cumu} shows this accumulation).
@@ -84,7 +84,7 @@ For the dynamic measurements we chose to capture on public bus transportation si
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{ChosenGraphDynamic.png}
-\caption{Cumulative amount of BSSIDs per channel for a bus drive from Zoetermeer to TU Aula, data aggregated in time bins of 1 minute.}
+\caption{Cumulative amount of BSSIDs per channel for a bus drive from Zoetermeer to TU Aula, data aggregated in time bins of 1 minute. ($T_{dwell}=100ms$)}
 \label{fig:dynamic_zoetermeer_aula_cumu}
 \end{figure}
 

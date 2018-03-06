@@ -9,8 +9,17 @@ import csv
 
 from func import timestampToExcelDatetime
 
-
+# Prefix to give the output files
+# By default they will be called 
+# 	aps.json
+# 	aps.csv
+# 	per_minute.csv
+# 	per_half_minute_cumulative.csv
+# This prefix is added to the front of the file which makes is easier to distinguish different parsed datasets
 prefix = ""
+# Pattern for the files to parse
+# For parsing a single file just change to file path
+pattern = "./captures/*.pcapng"
 
 aps = {}
 channels = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -40,7 +49,7 @@ channels_per_minute = {}
 channels_per_half_minute = {}
 
 num_packets = 0
-for file in glob.glob("./captures/*.pcapng"):
+for file in glob.glob(pattern):
 	print(file)
 	capture = pyshark.FileCapture(input_file=file)
 
