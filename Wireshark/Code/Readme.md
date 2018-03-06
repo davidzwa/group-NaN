@@ -18,6 +18,11 @@
 
 ### Running
 
+* In order to setup monitoring the script runAirmon.py can be called. 
+			
+			'python airmonRun.py'
+
+* The following commands are executed in order by this python script:
 * Make sure any existing wifi management daemon is not running by executing:
 
           	airmon-ng check kill
