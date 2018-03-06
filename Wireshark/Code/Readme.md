@@ -20,22 +20,22 @@
 
 * In order to setup monitoring the script runAirmon.py can be called. 
 			
-			'python airmonRun.py'
+		'python airmonRun.py'
 
 * The following commands are executed in order by this python script:
 * Make sure any existing wifi management daemon is not running by executing:
 
-          	airmon-ng check kill
+		airmon-ng check kill
 
 * Put your wifi adapter into monitoring mode
 
-          	airmon-ng start wlan0
+		airmon-ng start wlan0
 
 * cd into the Git repo code folder/Code folder
 
 * Start the channel hopper
 
-          	sh ./bash/chanhop.sh -i wlan0mon -b IEEE80211BINTL
+		sh ./bash/chanhop.sh -i wlan0mon -b IEEE80211BINTL
 
 * Open Wireshark and start capturing on wlan0mon interface \* Note: don't turn on monitoring from within Wireshark this will interfere with airmon.
 
@@ -56,4 +56,4 @@
 
 * run the parser
 
-          	python process_captures.py
+		python process_captures.py
