@@ -1,0 +1,24 @@
+Begin reis = ~600
+Note; channel dwell nu 0.1s
+15:58 - Zoetermeer busperron
+16:01 - Nathaliegang 711 Zoetermeer 
+16:02 - Driesprong 760
+16:03 - platteland 810
+16:04 - Meersma 850
+16:04 - Burg 880
+16:05 - Molenlaan 910
+16:06 - Zijdeweg 970
+16:07 - Mophuis 1040 Pijnacker
+16:07 - Klein vlieland 1070
+16:09 - Station pijnacker centrum 1140
+16:10 - Raadhuisplein 1235
+16:11 - Nootdorpseweg 1300
+16:12 - Rijskade 1325
+16:13 - B.V. Mol 1375
+16:14 - Van Vuren 1455
+16:15 - Delfgauwseplein 1550 - STOP
+16:17 - Laan der zeven linden 1630
+16:18 - Koningin Emmalaan 1730 - STOP
+16:19 - Prof. Kraus straat 1800 - STOP
+16:20 - Schoemakerstraat 1845
+16:22 - TU Aula 1930
