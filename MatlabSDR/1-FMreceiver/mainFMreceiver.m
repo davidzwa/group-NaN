@@ -8,7 +8,7 @@ time = 5;  %sec
 samples = time*fs;
 
 %file specification
-subFolder = 'Lab6_matlab';
+subFolder = 'Lab6_matlab\';
 file = 'cap.bin';
 refresh_capture = false;
 addpath(subFolder);
