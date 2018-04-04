@@ -1,0 +1,1 @@
+waveform = wlanWaveformGenerator(bits,cfgFormat)
