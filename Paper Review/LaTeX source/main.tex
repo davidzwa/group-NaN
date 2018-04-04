@@ -1,0 +1,104 @@
+\documentclass[a4paper,journal]{IEEEtran_custom}
+\usepackage[pdftex]{graphicx}
+\usepackage{caption}
+\DeclareGraphicsExtensions{.pdf,.png, .eps}
+\hyphenation{op-tical net-works semi-conduc-tor}
+\renewcommand\refname{References}
+\begin{document}
+\title{\vspace*{0.405cm} Empowering
+Low-Power Wide Area Networks in Urban Settings - Paper Summary}
+\author{\vspace*{0.4cm}David~Zwart \\
+Delft University of Technology \\
+Delft, The Netherlands\\
+ET4394 - Wireless Networking
+}
+\markboth{\strangesize{Wireless Networking - Paper Summary}}%
+{David~J.~Zwart: Wireless Networking Paper summary}
+
+\maketitle
+% \begin{abstract}
+% \end{abstract}
+
+\begin{IEEEkeywords}
+LP-WAN \footnote{Low-power WAN}, Choir, LoRa, CSS, Collision
+\end{IEEEkeywords}
+%--------------------------------------------------------------------------------
+
+\section{Problem statement}
+
+\IEEEPARstart{I}{n} dense areas the performance of LP-WAN drops, because of signal collisions from multiple clients on a receiving base station(star network). The selected paper\cite{paper1} describes an algorithm to disentangle multiple-access collisions. It intends to do so by analyzing and using the hardware imperfections of the clients' transmission hardware: the transmitter oscillator frequency offset, phase offset and timing offset can be leveraged to identify different clients. \\ 
+
+Identifying these imperfections on the base-station only is stated to cost less and is less complex of a hardware change than solutions, which try to improve the hardware of clients. \\
+The paper focuses on three aspects:
+\begin{itemize}
+    \item \textbf{Separating collisions}/identifying users by determining the frequency offset per data symbol (re-evaluating this per time interval).
+    \item \textbf{Determining timing offsets} in chirps, because of the timing relation with frequency in chirp modulation.
+    \item Finding and \textbf{recognizing correlating transmissions} to increase range of multiple clients beyond individual range: a trade-off between sensor data resolution and signal strength.
+\end{itemize}
+
+It is discussed how Choir can be used in the implementation protocols\footnote{With a pre-defined PHY and MAC layer} like LoRa, NB-IoT and SigFox, although Choir is most compatible with the Chirp Spread Spectrum (CSS) property of LoRa. 
+% More specifically, CSS signals shows overlapping spectrum sinc sidebands for one clients data symbols, which can be used to assign peaks to  different clients. \\
+% SigFox and NB-IoT do not directly couple time (offset) to modulated frequency. Therefore the signal timing offset is not related to frequency offset anymore, which is left untreated in the paper. It is stated however that since these technologies have Narrow-Band property the sinc sidebands (leakage) are smaller and easier assigned to a certain client.
+
+\subsection{Separating collisions}
+\label{sec:sep_coll}
+The paper gives a mathematical example of two colliding chirps and their channels ($h_1$ and $h_2$). Colliding chirps are separated using the transmitter frequency offset, which is done iteratively. \\
+First the signals are mixed with an down-chirp (demodulation). The FFT shows peaks for colliding chirps. These peaks are then an estimation of the frequency and offset. The estimation is too rough because of the limited FFT frequency resolution. The channel of each client is estimated by fitting on a signal of two colliding chirps and the output signal (eq. 1). Equation 2,3 and 4 define the minimization function with which a \emph{gradient descent} approach tries converging to a minimum error of the fitted channels, frequency offsets and demodulated output signal.
+
+\paragraph{Near-far problem} Nearby clients overpower signals from clients far away. The paper describes a solution: cancel the interference from the strong clients first. Then analyze the far-away clients separately.
+\paragraph{Separating clients} The fractional part of the frequency offset indicates to which client each peak belongs (assuming the frequency offset is stable for the whole packet.
+\paragraph{Spreading factors} Choir is used only for collisions one the same spreading factor (SF), since different spreading factors result in orthogonal data streams.
+
+\subsection{Determining timing offsets}
+Timing offsets don't create as much as a problem for collisions, since time offset is related to frequency offset. Therefore the paper states that the timing offset can be taken as frequency offset (added).
+\paragraph{Inter Symbol Interference, ISI} A fixed-time frequency window is sampled to detect peaks. With timing offsets and a two-chirp collision, the window can detect at most 4 data peaks due to ISI. Only 2 of these peaks are really data, the peaks which re-appear in another collisions should be reported only once. 
+\paragraph{Combining everything} The frequency offset, timing offset, channel magnitude ($h_i$ magnitude) and resulting phase offset are fed into an so-called HMRF-clustering algorithm, which supposedly returns the data bits for each user. It is not really worked out any further how this is applied.
+
+\subsection{Recognizing correlating transmissions}
+The clients are being activated by a beacon signal from the base station as synchronisation. This is stated to be good enough, because of the timing offset analysis performed when receiving data at the base station.
+\paragraph{Common data} The paper discusses a strategy to recognize similar data by maximum likelyhood and repetition of the iterative algorithm discussed in \ref{sec:sep_coll}. But this is left quite open as to how it is actually applied. It is shown in Section 9, how the range is improved by adding more clients.
+
+\subsection{Results}
+Choir is shown to be able to detect client hardware imperfections, disentangle collisions and extend the range of multiple clients by assuming correlation between the data of these clients (temperature, humidity). Graphs are given with reliability bounds included. Choir is compared to Oracle and Aloha MAC-types. As extension, Choir is also compared to MIMO.
+
+\section{Good points}
+The paper is well written and does not mix up the order of the sequential steps of improving signal collisions.
+
+\subsection{Research problem and solution}
+The research paper proves how reliable frequency, phase and timing offset are as client identification and collision detection tool. It really seems credible that these hardware fingerprints can be leveraged to enhance signal collisions beyond normal performance. This is achieved by presenting credible reliability figures (stdev, rms-error, box-plots).
+
+\subsection{Results}
+The paper clearly shows how Choir is much of an improvement over standard LoRa MAC-types (Aloha, Oracle). It is shown how it improved network throughput, latency and re-transmissions are improve by a big factor.
+
+\section{Critique}
+\subsection{Initial assumptions}
+The paper assumes that clients (sensors) are (going to be) cheap and low-power. The trade-off between placing more sensors around the (testbed) area than higher-quality sensors is not discussed. It doesn't seem justified to make the problem of signal collisions bigger over reducing the amount of sensors, increasing their quality and reducing the required effort of retrieving data. \\
+
+\subsection{Goals}
+The research goal is developed around the statement that improving the client hardware is coupled to high complexity and costs, but the actual range improvement of Choir makes one wonder if deploying 30 sensors for a range extension of 2.65x is really worth it. If 30 sensors are capable of reaching further, 5 more expensive sensors are also capable of doing so. These 5 sensors are also able to address the problem of colliding signals much better than 30 units.
+
+\paragraph{Sensor resolution} It is stated that at most 13\% resolution is lost by increasing the sensor range. This is quite a high percentage.
+
+\paragraph{Implentation flexibility} Choir fixes many specifications of both the clients, wireless communication, synchronization and data content. One could wonder whether this inflexibility of being able to measure different types of data is wanted. Choir would not be able to improve the range of different types of measurements on the same spreading factor anymore or restrictions would have to be applied to the data sent. 
+Also the sensor boards must wait for the base station, restricting the flexibility or responsiveness of the network and the applications.
+
+All in all, the applications of Choir seem very limited for an IoT world, since IoT is all about different sensor data (similar data is of less interest) and flexible appliances. For a very static fixed environment with barely any change, Choir is still very useful.
+
+\paragraph{MIMO vs Choir} It is stated that MIMO is not the solution since the base station becomes more expensive per antenna added. It is however shown that MIMO is very efficient at decoupling different users by adding antenna's. Looking at the results, MIMO performance already comes very close to Choir's performance. Although MIMO is supposedly more expensive to expand, a slight improvement of the base-station already took a way faster leap to an improved base station than the efforts and software complexity of Choir. \\
+
+\subsection{Hardware}
+Choir seems to make use of computationally heavy algorithms (iterated minimization and cluster algorithm) and it does not give any information about how powerful the base-station's computing hardware should be. Since the base-station is only a singleton versus the many sensor boards, one could assume the price budget of the computational hardware to be more flexible than that for the sensor boards. But by not discussing this an important factor of the purpose of Choir is unjustified.
+
+\begin{thebibliography}{1}
+
+\bibitem{paper1}
+
+Rashad Eletreby, Diana Zhang, Swarun Kumar, and Osman Yağan. 2017. \emph{Empowering
+Low-Power Wide Area Networks in Urban Settings}. \\
+In \emph{Proceedings
+of SIGCOMM ’17, Los Angeles, CA, USA, August 21–25, 2017}, 13 \emph{pages}
+2017 ACM
+
+\end{thebibliography}
+
+\end{document}
